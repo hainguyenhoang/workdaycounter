@@ -6,7 +6,8 @@ license = "GPL-3.0-or-later"
 
 [dependencies]
 chrono = "0.4"
+console = "0.15"
 
 [dependencies.clap]
-version = "4.4.6"
+version = "4.4"
 features = ["derive"]
