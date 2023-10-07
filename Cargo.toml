@@ -1,12 +1,11 @@
 [package]
 name = "workdaycounter"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 license = "GPL-3.0-or-later"
 
 [dependencies]
 chrono = "0.4"
-console = "0.15"
 
 [dependencies.clap]
 version = "4.4"

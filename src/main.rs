@@ -1,10 +1,9 @@
-use std::{fs, thread};
+use std::fs;
 use std::collections::HashSet;
 use std::str::FromStr;
 use chrono::prelude::*;
 use chrono::Duration;
 use clap::Parser;
-use console::Term;
 
 #[derive(Parser)]
 #[command(version)]
@@ -57,19 +56,10 @@ fn main() {
     let args = Args::parse();
     let holidays = parse_holidays(&args.holiday_path);
 
-    let term = Term::stdout();
-    loop {
-        let mut now = Local::now().naive_local();
-        if let Some(new_now) = args.now {
-            now = new_now;
-        }
-
-        term.clear_last_lines(1).unwrap();
-        println!("Workdays remaining: {}", calculate_remaining_workdays(&now, &args.end_of_work,
-                                                                        &holidays));
-        if let Some(_) = args.now {
-            break;
-        }
-        thread::sleep(std::time::Duration::from_secs(1));
+    let mut now = Local::now().naive_local();
+    if let Some(new_now) = args.now {
+        now = new_now;
     }
+    println!("Workdays remaining: {}", calculate_remaining_workdays(&now, &args.end_of_work,
+                                                                    &holidays));
 }
