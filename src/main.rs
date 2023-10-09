@@ -60,6 +60,6 @@ fn main() {
     if let Some(new_now) = args.now {
         now = new_now;
     }
-    println!("Workdays remaining: {}", calculate_remaining_workdays(&now, &args.end_of_work,
+    println!("{:.5}", calculate_remaining_workdays(&now, &args.end_of_work,
                                                                     &holidays));
 }
