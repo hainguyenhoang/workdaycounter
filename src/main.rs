@@ -38,8 +38,8 @@ fn calculate_remaining_workdays(now: &NaiveDateTime, end_of_work: &NaiveDateTime
                                       holidays: &HashSet<NaiveDate>) -> f64{
     let mut ret = 0.0;
     if now.weekday().number_from_monday() <= 5 && !holidays.contains(&now.date()){
-        let seconds_remaining_today = (end_of_work.time() - now.time()).num_seconds();
-        let today_remaining = seconds_remaining_today as f64 / (8 * 60 * 60) as f64;
+        let millisecs_remaining_today = (end_of_work.time() - now.time()).num_milliseconds();
+        let today_remaining = millisecs_remaining_today as f64 / (8 * 60 * 60 * 1000) as f64;
         ret += today_remaining.min(1.0).max(0.0);
     }
     let mut date_to_check = now.date() + Duration::days(1);
@@ -60,6 +60,5 @@ fn main() {
     if let Some(new_now) = args.now {
         now = new_now;
     }
-    println!("{:.5}", calculate_remaining_workdays(&now, &args.end_of_work,
-                                                                    &holidays));
+    println!("{:.8}", calculate_remaining_workdays(&now, &args.end_of_work, &holidays));
 }
